@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Person.css';
+import CSSClasses from './Person.css';
 
 // Use this function form of component as often as possible because these are very clear about what they do.
 // They are simple, they don't manipulate the application.
@@ -9,7 +9,7 @@ import './Person.css';
 const person = (props) => {
     return (
         // @style will override @className styles on behalf of regular CSS rules, not because of Radium rules
-        <div className='Person' >
+        <div className={CSSClasses.Person} >
             {/* Attributes of the object */}
             {/* This @onClick is passed a reference to a function that resides in @App.js. This is a common pattern. */}
             <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
