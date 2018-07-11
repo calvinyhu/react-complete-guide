@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // Thanks to webpack, we can "import" css files in js files
 import CSSClasses from './App.css'; // imports App, red, and bold
-import Person from './Person/Person';
+import Person from '../components/Persons/Person/Person';
 
 // React will update state if either @state is changed OR @props are changed.
 // @App is considered a container because it contains some state.
@@ -85,22 +85,23 @@ class App extends Component {
   }
 
   render() {
-    // Styling hovering effect is pretty hard using inline styles
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      // :hover is a Radium feature (npm install --save radium) in project root folder
-      // ':hover': {
-      //   backgroundColor: 'lightgreen',
-      //   color: 'black',
-      // },
-    };
+    // // Styling hovering effect is pretty hard using inline styles
+    // const style = {
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   // :hover is a Radium feature (npm install --save radium) in project root folder
+    //   // ':hover': {
+    //   //   backgroundColor: 'lightgreen',
+    //   //   color: 'black',
+    //   // },
+    // };
 
     let persons = null;
+    let buttonClass = '';
 
     // Below is common way to show lists in React using map
     // @index is an automatically passed in argument in the @map function
@@ -115,12 +116,12 @@ class App extends Component {
               click={() => this.deletePersonHandler(index)}
               key={person.id}
               // must have @event defined explicitly on the LHS in the anonymous function, and then passed to the @nameChangedHandler on the RHS
-              changed={(event) => this.nameChangeHandler(event, person.id)} />
+              changed={(event) => this.nameChangeHandler(event, person.id)} /> 
           })}
         </div>
       );
 
-      style.backgroundColor = 'red';
+      buttonClass = CSSClasses.Red;
     }
 
     const pclasses = []; // "red bold"
@@ -144,8 +145,8 @@ class App extends Component {
         {/* For arrow functions, an implicit @return is added after the arrow */}
         {/* We are passing an anonymous function for @onClick */}
         {/* Use @bind more often, since anonymouse function can be inefficient. */}
-        <button 
-          style={style}
+        <button
+          className={buttonClass}
           onClick={this.togglePersonsHandler} >Toggle Persons</button>
         {persons}
       </div>

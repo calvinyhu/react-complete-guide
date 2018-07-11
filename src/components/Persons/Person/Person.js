@@ -1,5 +1,4 @@
 import React from 'react';
-
 import CSSClasses from './Person.css';
 
 // Use this function form of component as often as possible because these are very clear about what they do.
