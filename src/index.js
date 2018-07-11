@@ -5,5 +5,5 @@ import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
 // Typically render one root component, inside root component, you nest components
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App title='Relevant Persons'/>, document.getElementById('root'));
 registerServiceWorker();
