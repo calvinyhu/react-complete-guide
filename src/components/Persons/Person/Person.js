@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import classes from './Person.css';
-import withClass from '../../../hoc/withClass';
+import withClass from '../../../hoc/WithClass';
 import Aux from '../../../hoc/Aux';
+import {AuthContext} from '../../../containers/App';
 
 // Use this function form of component as often as possible because these are very clear about what they do.
 // They are simple, they don't manipulate the application.
@@ -37,6 +38,10 @@ class Person extends Component {
         return (
             // @style will override @className styles on behalf of regular CSS rules, not because of Radium rules
             <Aux>
+                <AuthContext.Consumer>
+                    {auth => auth ? <p>I'm authenticated</p> : null}
+                </AuthContext.Consumer>
+
                 {/* Attributes of the object */}
                 {/* This @onClick is passed a reference to a function that resides in @App.js. This is a common pattern. */}
                 <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>

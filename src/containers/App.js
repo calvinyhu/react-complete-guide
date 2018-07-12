@@ -4,7 +4,9 @@ import classes from './App.css'; // imports App, red, and bold
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux';
-import withClass from '../hoc/withClass';
+import withClass from '../hoc/WithClass';
+
+export const AuthContext = React.createContext(false);
 
 // React will update state if either @state is changed OR @props are changed.
 // @App is considered a container because it contains some state.
@@ -27,6 +29,7 @@ class App extends PureComponent {
       otherState: 'Some other value',
       showPersons: false,
       toggleClicked: 0,
+      authenticated: false,
     }
   }
 
@@ -49,7 +52,18 @@ class App extends PureComponent {
     console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState);
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('[UPDATE App.js] Inside getDerivedStateFromProps', nextProps, prevState);
+    return prevState;
+  }
+
+  // This function is a great spot to save the scrolling position of the user
+  getSnapshotBeforeUpdate() {
+    console.log('[UPDATE App.js] Inside getSnapshotBeforeUpdate');
+  }
+
   // @render is called after @componentWillUpdate and before @componentDidUpdate
+  // This function is a great place to set the new scrolling position
   componentDidUpdate() {
     console.log('[UPDATE App.js] Inside componentDidUpdate');
   }
@@ -100,6 +114,12 @@ class App extends PureComponent {
     })
   }
 
+  loginHandler = () => {
+    this.setState({
+      authenticated: true,
+    })
+  }
+
   render() {
     console.log('[App.js] Inside render');
     let persons = null;
@@ -128,8 +148,11 @@ class App extends PureComponent {
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
-          clicked={this.togglePersonsHandler} />
-        {persons}
+          clicked={this.togglePersonsHandler}
+          login={this.loginHandler} />
+        <AuthContext.Provider value={this.state.authenticated}>
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }
